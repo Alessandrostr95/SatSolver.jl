@@ -32,7 +32,71 @@ I::SatSolver.Instance = SatSolver.parseInstanceFromFile("path/to/file.txt")
 
 ## Solve an instance
 Function ```sat``` determines if the given instance is satisfiable, and returns the set of assignments that satisfy the instance, ```false``` otherwise.
+``` Julia
+julia> formula = """
+       A ~B ~C
+       ~D E F
+       """;
+
+julia> I = parseInstance(formula);
+
+julia> sat(I)
+Dict{String, Bool} with 2 entries:
+  "B" => 0
+  "D" => 0
+  
+julia> formula = """
+       A
+       ~A
+       """;
+       
+julia> J = parseInstance(formula);
+
+julia> sat(J)
+false
+```
+
 We can also call the funcion ```isSatisfiable``` to determine if a given instance is satisfiable or not.
+``` Julia
+julia> isSatisfiable(I)
+true
+
+julia> isSatisfiable(J)
+false
+```
+
+## Visualize
+Function `printInstance` prints a human readable representation of the logical formula
+``` Julia
+julia> printInstance(I)
+(A ~B ~C) (~D E F)
+```
+
+Given an assignment that satisfies an instance, a "pretty" representation of that assignment can be printed on the screen with functions `printSolutionTable` and `printRawTable`
+``` Julia
+julia> solution = sat(I);
+
+julia> printSolutionTable(I, solution)
+┌──────────┬───────┐
+│ Variable │ Value │
+├──────────┼───────┤
+│        B │ false │
+│        A │   Any │
+│        C │   Any │
+│        D │ false │
+│        E │   Any │
+│        F │   Any │
+└──────────┴───────┘
+
+julia> printRawTable(I, solution)
+B : false
+A : Any
+C : Any
+D : false
+E : Any
+F : Any
+```
+The `Any` value indicates that any interpretation (true or false) can be given to the respective variable.
 
 -----
 ## TODO list
