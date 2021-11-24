@@ -1,6 +1,17 @@
 # SatSolver.jl
 Yet another Sat Solver, but in Julia
 
+## Installation
+The package is available in the official General registry, and therefore can be downloaded directly from the julia package manager.
+``` Julia
+julia> ]
+(@v1.6) pkg> add SatSolver
+```
+or
+``` Julia
+julia> import Pkg; Pkg.add("SatSolver")
+```
+
 ## Description
 This is a package completely written in Julia which solves the satisfiability problem for formulas in [CNF](https://en.wikipedia.org/wiki/Conjunctive_normal_form) form.
 
